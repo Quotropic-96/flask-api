@@ -15,3 +15,7 @@ currency_rates = [
   { "from": "USD", "to": "EUR", "rate": "0.736" },
   { "from": "EUR", "to": "CAD", "rate": "1.366" }
 ]
+
+@app.get('/all-currency-rates')
+def get_all_currency_rates():
+  return {"Currency rates":currency_rates}
