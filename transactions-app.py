@@ -1,6 +1,7 @@
 from flask import Flask
 app = Flask(__name__)
 
+# Data
 transactions = [
   { "sku": "T2006", "amount": "10.00", "currency": "USD" },
   { "sku": "M2007", "amount": "34.57", "currency": "CAD" },
@@ -16,6 +17,9 @@ currency_rates = [
   { "from": "EUR", "to": "CAD", "rate": "1.366" }
 ]
 
+#  @desc    Gets all the currency rates
+#  @route   GET /all-currency-rates
+#  @access  Public
 @app.get('/all-currency-rates')
 def get_all_currency_rates():
   return {"Currency rates":currency_rates}
