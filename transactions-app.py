@@ -17,9 +17,17 @@ currency_rates = [
   { "from": "EUR", "to": "CAD", "rate": "1.366" }
 ]
 
+def get_missing_rates(rates):
+  rate_set = set()
+  for rate in rates:
+    rate_set.add(rate["from"])
+    rate_set.add(rate["to"])
+  return rate_set
+
 #  @desc    Gets all the currency rates
 #  @route   GET /all-currency-rates
 #  @access  Public
 @app.get('/all-currency-rates')
 def get_all_currency_rates():
+  print(get_missing_rates(currency_rates))
   return {"Currency rates":currency_rates}
