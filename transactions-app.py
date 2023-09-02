@@ -27,6 +27,17 @@ def get_all_currency_rates():
   available_currencies = get_available_currencies(currency_rates)
   return {"Currency rates":get_missing_rates(available_currencies, currency_rates)}
 
+#  @desc    Gets a transaction by sku & currency
+#  @route   GET /transactions/<currency>/<sku>
+#  @access  Public
+@app.get('/transactions/<currency>/<sku>')
+def get_transaction_by_currency_and_sku(currency, sku):
+  filtered_transactions = list(filter(lambda transaction: transaction["currency"] == currency and transaction["sku"] == sku, transactions))
+  if len(filtered_transactions) != 0:
+    return filtered_transactions
+  else:
+    return [{"message": f'No transactions found with currency {currency} and sku {sku}'}]
+
 #  @desc    Gets all the transactions with a given currency
 #  @route   GET /transactions/<currency>
 #  @access  Public
