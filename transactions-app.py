@@ -26,3 +26,13 @@ currency_rates = [
 def get_all_currency_rates():
   available_currencies = get_available_currencies(currency_rates)
   return {"Currency rates":get_missing_rates(available_currencies, currency_rates)}
+
+@app.get('/transactions/<currency>')
+def get_all_transactions_by_currency(currency):
+  filtered_transactions = list(filter(lambda transaction: transaction["currency"] == currency, transactions))
+  if len(filtered_transactions) != 0:
+    return filtered_transactions
+  else:
+    return [{"message": f'No transactions found with currency {currency}'}]
+
+app.run()
