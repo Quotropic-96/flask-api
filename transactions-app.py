@@ -27,6 +27,9 @@ def get_all_currency_rates():
   available_currencies = get_available_currencies(currency_rates)
   return {"Currency rates":get_missing_rates(available_currencies, currency_rates)}
 
+#  @desc    Gets all the transactions with a given currency
+#  @route   GET /transactions/<currency>
+#  @access  Public
 @app.get('/transactions/<currency>')
 def get_all_transactions_by_currency(currency):
   filtered_transactions = list(filter(lambda transaction: transaction["currency"] == currency, transactions))
