@@ -27,6 +27,20 @@ def get_all_currency_rates():
   available_currencies = get_available_currencies(currency_rates)
   return {"Currency rates":get_missing_rates(available_currencies, currency_rates)}
 
+#  @desc    Gets a currency rate by currency codes
+#  @route   GET /currency-rate/<from_currency>/<to_currency>
+#  @access  Public
+@app.get('/currency-rate/<from_currency>/<to_currency>')
+def get_currency_rate_by_currency_codes(from_currency, to_currency):
+  available_currencies = get_available_currencies(currency_rates)
+  all_rates = get_missing_rates(available_currencies, currency_rates)
+  filtered_rates = list(filter(lambda rate: rate["from"] == from_currency and rate["to"] == to_currency, all_rates))
+  if len(filtered_rates) != 0:
+    return filtered_rates[0]
+  else:
+    return [{"message": f'No rate found from {from_currency} to {to_currency}'}]
+
+
 #  @desc    Gets a transaction by sku & currency
 #  @route   GET /transactions/<currency>/<sku>
 #  @access  Public
